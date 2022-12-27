@@ -1,17 +1,16 @@
 name: MacOS 11.7 Big Sur x86-64 Compile
 
-on: [push,workflow_dispatch,workflow_call]
+on: [push, workflow_dispatch, workflow_call]
 
 jobs:
   build:
-
     runs-on: macos-11
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
       - name: Compile OpenSSL
         run: |
           git clone https://github.com/openssl/openssl openssl_1_1_1
@@ -28,7 +27,7 @@ jobs:
           mkdir build
           cd build
           cmake -GNinja -DOPENSSL_FOUND=1 -DOPENSSL_INCLUDE_DIR=$rootPath/openssl_1_1_1/include -DOPENSSL_CRYPTO_LIBRARY=$rootPath/openssl_1_1_1/libcrypto.a -DCMAKE_OSX_DEPLOYMENT_TARGET:STRING=11.7 -DCMAKE_CXX_FLAGS="-stdlib=libc++" -DCMAKE_BUILD_TYPE=Release ..
-          ninja fift func tonlib tonlibjson tonlib-cli validator-engine lite-client pow-miner validator-engine-console generate-random-id json2tlo dht-server http-proxy rldp-http-proxy adnl-proxy create-state create-hardfork tlbc
+          ninja fift func tonlib tonlibjson tonlib-cli validator-engine lite-client pow-miner validator-engine-console generate-random-id json2tlo dht-server http-proxy rldp-http-proxy adnl-proxy create-state create-hardfork tlbc storage-daemon storage-daemon-cli
 
       - name: Find & copy binaries
         run: |

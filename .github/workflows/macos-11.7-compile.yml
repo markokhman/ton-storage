@@ -31,6 +31,7 @@ jobs:
 
       - name: Find & copy binaries
         run: |
+          ls build
           mkdir artifacts
           cp build/crypto/fift artifacts/
           cp build/crypto/func artifacts/
